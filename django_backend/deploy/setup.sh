@@ -33,7 +33,7 @@ PROJECT_PATH='/usr/local/apps/django_backend'
 # cd $PROJECT_PATH
 # $PROJECT_BASE_PATH/env/bin/python3 manage.py migrate
 # $PROJECT_BASE_PATH/env/bin/python3 manage.py collectstatic --noinput
-
+echo "half! :)"
 # Configure supervisor
 cp /usr/local/apps/django_backend/deploy/supervisor_profiles_api.conf /etc/supervisor/conf.d/profiles_api.conf
 supervisorctl reread
