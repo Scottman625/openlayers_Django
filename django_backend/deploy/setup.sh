@@ -23,7 +23,7 @@ apt-get install -y python3-dev python3-venv sqlite python3-pip supervisor nginx 
 # python3 -m venv $PROJECT_BASE_PATH/env
 
 # apt-get install python3-pip
-
+echo 'test'
 # Install python packages
 $PROJECT_BASE_PATH/env/bin/python3 -m pip install -r $PROJECT_BASE_PATH/requirements.txt
 $PROJECT_BASE_PATH/env/bin/python3 -m pip install uwsgi
