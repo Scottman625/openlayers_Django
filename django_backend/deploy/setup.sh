@@ -5,9 +5,9 @@ set -e
 # TODO: Set to URL of git repo.
 # PROJECT_GIT_URL='https://github.com/Scottman625/openlayers_Django.git'
 
-# PROJECT_BASE_PATH='/usr/local/apps'
+PROJECT_BASE_PATH='/usr/local/apps'
 
-# PROJECT_PATH='/usr/local/apps/django_backend'
+PROJECT_PATH='/usr/local/apps/django_backend'
 
 # echo "Installing dependencies..."
 # apt-get update
