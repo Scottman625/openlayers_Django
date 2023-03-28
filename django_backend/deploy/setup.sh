@@ -19,7 +19,7 @@ echo 'haha!'
 mkdir -p $PROJECT_BASE_PATH
 git clone $PROJECT_GIT_URL $PROJECT_BASE_PATH
 
-Create virtual environment
+# Create virtual environment
 mkdir -p $PROJECT_BASE_PATH/env
 python3 -m venv $PROJECT_BASE_PATH/env
 
