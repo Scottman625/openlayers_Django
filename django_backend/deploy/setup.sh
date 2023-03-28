@@ -7,7 +7,7 @@ PROJECT_GIT_URL='https://github.com/Scottman625/openlayers_Django'
 
 PROJECT_BASE_PATH='/usr/local/apps'
 
-PROJECT_PATH='/usr/local/apps/app'
+PROJECT_PATH='/usr/local/apps/django_backend'
 
 echo "Installing dependencies..."
 apt-get update
