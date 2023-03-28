@@ -35,7 +35,7 @@ PROJECT_PATH='/usr/local/apps/django_backend'
 # $PROJECT_BASE_PATH/env/bin/python3 manage.py collectstatic --noinput
 
 # Configure supervisor
-cp $PROJECT_PATH/deploy/supervisor_profiles_api.conf /etc/supervisor/conf.d/profiles_api.conf
+cp /usr/local/apps/django_backend/deploy/supervisor_profiles_api.conf /etc/supervisor/conf.d/profiles_api.conf
 supervisorctl reread
 supervisorctl update
 supervisorctl restart profiles_api
