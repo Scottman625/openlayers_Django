@@ -10,9 +10,9 @@ PROJECT_BASE_PATH='/usr/local/apps'
 PROJECT_PATH='/usr/local/apps/app'
 
 echo "Installing dependencies..."
-# apt-get update
+apt-get update
 echo "Hello..."
-# apt-get install -y python3-dev python3-venv sqlite python3-pip supervisor nginx git
+apt-get install -y python3-dev python3-venv sqlite python3-pip supervisor nginx git
 
 # Create project directorycd
 mkdir -p $PROJECT_BASE_PATH
