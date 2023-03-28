@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>OpenLayers Map Example</title>
+    <link rel="stylesheet" href="https://openlayers.org/en/v4.6.5/css/ol.css" type="text/css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <script src="https://openlayers.org/en/v4.6.5/build/ol.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/geojson/dist/geojson.min.js"></script> -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+
+<!-- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"></script> -->
+</head>
+<style>
+    #map {
+        width: 100%;
+        height: 400px;
+      }
+
+      @media (min-width: 992px) {
+      .modal-lg {
+        width: 1000px;
+  }
+
+
+}
+</style>
+<body>
+  <form method="post" enctype="multipart/form-data">{% csrf_token %}
+    <div id="map" class="map"></div>
+  </form>
+    </br>
+    </br>
+
+
+      
+        <button class="btn btn-primary btn-sm" type="button" data-bs-toggle="modal" 
+
+        data-bs-target="#checkModal" id="modalButton"
+      
+        >
+        地區標繪列表
+        </button>
+        <div class="modal fade" id="checkModal" data-target=".bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content modal-lg">
+              <div class="modal-header modal-lg">
+                <h5 class="modal-title" id="exampleModalLabel">地區標繪列表</h5>
+                <button type="button" class="close" data-dismiss="modal" id="modalClose" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body modal-lg">
+                <div class="row">
+                  <div class="col-md-3 ml-auto">
+                    <input class="form-check-input" id="1" name="" type="checkbox" value="1"  />
+                    <label class="h6" for=""></label>
+                  </div>
+                  <div class="col-md-3 ml-auto">項次</div>
+                  <div class="col-md-3 ml-auto">名稱</div>
+                  <div class="col-md-3 ml-auto">定位</div>
+
+                </div>
+                {% for data in datas %}
+                </br>
+                  <div class="row">
+                    
+                      <div class="col-md-3 ml-auto">
+                        <input class="form-check-input" id="1" name="" type="checkbox" value="1"  />
+                        <label class="h6" for=""></label>
+                      </div>
+                      <div class="col-md-3 ml-auto">{{data.id}}</div>
+                      <div class="col-md-3 ml-auto">{{data.name}}</div>
+                      <div class="col-md-3 ml-auto" id="position_{{data.id}}" data-value="{{data.jsondata}}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt" viewBox="0 0 16 16">
+                        <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A31.493 31.493 0 0 1 8 14.58a31.481 31.481 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94zM8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10z"/>
+                        <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                      </svg></div>
+                    
+                  
+                  </div>
+                
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div>
+
+      <form method="post">{% csrf_token %}
+        <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog " role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">New data</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form>
+                  <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">DataName:</label>
+                    <input type="text" class="form-control" id="dataName" name="dataName">
+                  </div>
+                  <div class="form-group">
+                    <label for="message-text" class="col-form-label">JsonData:</label>
+                    <textarea class="form-control" id="jsonData" name="jsonData"></textarea>
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">
+                  取消
+                </button>
+                <button class="btn btn-primary" type="submit" name="save" value="ok" >
+                  儲存
+                </button>
+                  
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    <!-- <script type="text/javascript" src="main.js"></script> -->
+</body>
+</html>
+
+<script>
+  var drawSource = new ol.source.Vector();
+var drawLayer = new ol.layer.Vector({
+    source: drawSource
+});
+
+var map = new ol.Map({
+    target: 'map',
+    layers: [
+        new ol.layer.Tile({
+            source: new ol.source.OSM()
+        }),
+        drawLayer
+    ],
+    view: new ol.View({
+        center: ol.proj.fromLonLat([121.5, 25]),
+        zoom: 13
+    })
+});
+
+var draw = new ol.interaction.Draw({
+    source: drawSource,
+    type: 'Polygon'
+});
+
+map.addInteraction(draw);
+
+function getCookie(name){
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+                  }
+              }
+          }
+          return cookieValue;
+      }
+const csrftoken = getCookie('csrftoken');
+
+
+draw.on('drawend', function(event) {
+    var feature = event.feature;
+    var geojson = new ol.format.GeoJSON();
+    var geojsonStr = geojson.writeFeatureObject(feature);
+    $.ajax({
+        type: "POST",
+        contentType: "application/json",
+        data: {'geojsonStr':geojsonStr},
+        headers: {'X-CSRFToken': csrftoken},
+        url: "{% url 'return_jsondata' %}",
+        success: function(response)
+          { 
+            $('#jsonData').val(response.data);
+            console.log(typeof(response.data))
+            $("#editModal").modal('show');},
+        error: function error(response) {
+        // try {
+        //     
+        //     var json = JSON.parse(response.responseText);
+        //     if (typeof json.message === 'undefined') {
+        //         throw new Error("Response json has no message");
+        //     } else {
+        //         alert(json.message);
+        //     }
+        // } catch (ex) {
+        //     alert("unexpected error (code:" + response.status + ")");
+        // }
+    }
+        });
+});
+
+$(function () {
+  var datalength ="{{datalength}}";
+  console.log(datalength)
+  var modalClose = document.getElementById('modalClose')
+  modalClose.addEventListener('click', event=>{
+    $('#checkModal').modal('hide');
+  })
+
+  for(let id =1; id <= datalength ; id++ ){
+    
+    
+    document.getElementById(`position_${id}`).addEventListener('click', event =>{
+
+
+      JsonData = document.getElementById(`position_${id}`).getAttribute("data-value")
+      console.log(JsonData)
+      jsondatastring = JSON.stringify(eval("(" + JsonData + ")"));
+      jsondata = JSON.parse(jsondatastring)
+      // jsondata = JSON.parse(JSON.stringify(jsondata_str))
+      console.log(typeof(jsondata))
+      
+    //   var vectorSource = new ol.source.Vector({
+    //     features: (new ol.format.GeoJSON()).readFeatures(jsondatastring)
+    // });
+    var vectorSource = new ol.source.Vector()
+    vectorSource.addFeatures(jsondata)
+
+    var vectorLayer = new ol.layer.Vector({
+        source: vectorSource,
+        style: new ol.style.Style({
+            image: new ol.style.Circle({
+                radius: 6,
+                fill: new ol.style.Fill({
+                  color: '#ffcc33'
+                })
+            })
+        })
+    });
+    // map.addLayer(vectorLayer);
+
+    var draw = new ol.interaction.Draw({
+        source: vectorSource,
+        type: 'Polygon'
+    });
+
+    map.addInteraction(draw);
+    // var map = new ol.Map({
+    //     target: 'map',
+    //     layers: [
+    //         new ol.layer.Tile({
+    //             source: new ol.source.OSM()
+    //         }),
+    //         vectorLayer
+    //     ],
+    //     view: new ol.View({
+    //         center: ol.proj.fromLonLat([123, 11]),
+    //         zoom: 6
+    //     })
+    // });
+      
+  })
+  }
+  
+
+
+}
+);
+</script>
