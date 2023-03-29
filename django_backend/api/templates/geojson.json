@@ -1,0 +1,24 @@
+{
+    "geojsonStr[type]": [
+        "Feature"
+    ],
+    "geojsonStr[geometry][type]": [
+        "Polygon"
+    ],
+    "geojsonStr[geometry][coordinates][0][0][]": [
+        "13523960.194731219",
+        "2875599.894412292"
+    ],
+    "geojsonStr[geometry][coordinates][0][1][]": [
+        "13525174.677592743",
+        "2873554.9799690573"
+    ],
+    "geojsonStr[geometry][coordinates][0][2][]": [
+        "13521641.33117294",
+        "2873503.10132193"
+    ],
+    "geojsonStr[geometry][coordinates][0][3][]": [
+        "13523960.194731219",
+        "2875599.894412292"
+    ]
+}

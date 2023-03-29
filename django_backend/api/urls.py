@@ -3,8 +3,9 @@ from . import views
 from django.shortcuts import render
 from django.http import HttpResponse
 
-urlpatterns =[
-    path('index', views.index, name = 'index'), 
-    path('return_jsondata', views.return_jsondata, name = 'return_jsondata'),
+urlpatterns = [
+    path('index', views.index, name='index'),
+    path('return_jsondata', views.return_jsondata, name='return_jsondata'),
+    path('delete_data', views.delete_data, name='delete_data'),
 
 ]
